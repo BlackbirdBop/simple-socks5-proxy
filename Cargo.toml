@@ -7,3 +7,4 @@ members = [
 ]
 
 [workspace.dependencies]
+log = "0.4"

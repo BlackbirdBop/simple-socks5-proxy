@@ -1,0 +1,9 @@
+[workspace]
+resolver = "2"
+
+members = [
+    "simple-socks5-proxy",
+    "simple-socks5-proxy-core",
+]
+
+[workspace.dependencies]

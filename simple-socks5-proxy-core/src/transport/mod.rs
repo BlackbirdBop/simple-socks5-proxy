@@ -1,17 +1,20 @@
+use async_trait::async_trait;
 use tokio::io::{AsyncRead, AsyncWrite};
 
 pub mod ssh;
 
-pub trait Session {
-    type Error;
+#[async_trait]
+pub trait Session: Clone + Send + 'static{
+    type Error: Send;
+    type Stream: AsyncRead + AsyncWrite + Unpin + Send;
 
     fn is_closed(&self) -> bool;
 
-    async fn create_stream<A: Into<String>, B: Into<String>>(
+    async fn create_stream(
         &mut self,
-        host_to_connect: A,
+        host_to_connect: String,
         port_to_connect: u16,
-        originator_address: B,
+        originator_address: String,
         originator_port: u16,
-    ) -> Result<impl AsyncRead + AsyncWrite, Self::Error>;
+    ) -> Result<Self::Stream, Self::Error>;
 }

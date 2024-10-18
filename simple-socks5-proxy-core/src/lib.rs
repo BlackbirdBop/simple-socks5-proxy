@@ -1,3 +1,3 @@
 mod transport;
-
-pub use transport::ssh::SshSession;
+pub mod socks5;
+pub use transport::ssh;
